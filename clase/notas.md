@@ -21,7 +21,7 @@ Se decidio que vamos a tener dos actores
 1. El sistema de agendamiento de sitas
 2. El cliente
 
-El proceso empieza con el cliente seleccionando la especialidad y el medico, despues la aplicacion retorna las fechas validas
+El proceso empieza con el cliente seleccionando la especialidad y el medico, despues la aplicacion retorna las fechas validas, y el usuario selecciona de estas
 
 - ¿Qué herramientas se usaron (papel, pizarra, draw.io, Astah)?
 
