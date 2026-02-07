@@ -21,12 +21,17 @@ Se decidio que vamos a tener dos actores
 1. El sistema de agendamiento de sitas
 2. El cliente
 
+Se decide no incluir la base de datos, ni el servicio de envio de notificaciones como actor, ya que el rol de estos es muy basico, queries, o un mensaje, y no son dependencias externas, con procesos de otras empresas
+
 El proceso empieza con el cliente seleccionando la especialidad y el medico, despues la aplicacion retorna las fechas validas, y el usuario selecciona de estas
 
 - ¿Qué herramientas se usaron (papel, pizarra, draw.io, Astah)?
 
 utilizamos `bpmn.io`, y papel para escribir una descripcion inicial del proceso
+
 - ¿Qué parte del trabajo se alcanzó a desarrollar?
+
+Parte del diagrama, y un diagrama en notas
 
 ## 🧩 Boceto inicial del modelo
 
