@@ -15,6 +15,8 @@ _Indique la fecha de la clase en que se trabajó este taller._
 Analizamos el caso inicial, determinamos la aplicacion o programa para utilizar para el modelado, nos decidimos por utilizar bpmn.io, una plataforma web para el modelado de procesos.
 Se discutio quien es el actor y si las otras aplicaciones contarian como actor, decidimos que solo el paciente.
 
+Se recomienda incluir otros procesos, como el de autorizacion, para hacer el proceso mas complejo, tambien checkeos constantes y validaciones con la aplicacion para mejorar el proceso
+
 - ¿Qué decisiones de modelado se tomaron?
 
 Se decidio que vamos a tener dos actores
@@ -35,7 +37,11 @@ Parte del diagrama, y un diagrama en notas
 
 ## 🧩 Boceto inicial del modelo
 
-> (Puede insertar aquí una imagen del boceto, una captura de pantalla o un diagrama preliminar si ya fue hecho en digital)
+sketch inicial, en notas
+<img width="1867" height="749" alt="image" src="https://github.com/user-attachments/assets/3c61f925-f83c-44b3-bf39-6bdba79d6049" />
+
+Diagrama inicial
+<img width="2312" height="1004" alt="DiagramaClinica" src="https://github.com/user-attachments/assets/369974d0-963d-4214-9525-e0f4b8721823" />
 
 ## 🔁 Tareas definidas para complementar el taller
 
