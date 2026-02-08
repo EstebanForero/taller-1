@@ -43,6 +43,10 @@ sketch inicial, en notas
 Diagrama inicial
 <img width="2312" height="1004" alt="DiagramaClinica" src="https://github.com/user-attachments/assets/369974d0-963d-4214-9525-e0f4b8721823" />
 
+Diagrama final de la clase
+<img width="4404" height="330" alt="image" src="https://github.com/user-attachments/assets/1ac8010c-fc7a-49e2-8637-092f3059cbfb" />
+
+
 ## 🔁 Tareas definidas para complementar el taller
 
 Anote las responsabilidades acordadas entre los miembros del equipo para completar la entrega final:
