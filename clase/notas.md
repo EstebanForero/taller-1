@@ -1,13 +1,13 @@
-# 🗒️ Registro de Trabajo en Clase - Taller X
+# 🗒️ Registro de Trabajo en Clase - Taller 1 - BPNM
 
 ## 📆 Fecha de la sesión
-_Indique la fecha de la clase en que se trabajó este taller._
+_Sábado, 7 de febrero del 2026_
 
 ## 👥 Integrantes presentes
-- Esteban Fernando Forero Montejo
-- Carlos David Cruz Pavas
-- Juan Felipe Cepeda Uribe
-- Santiago Sabogal Millan
+- Esteban Fernando Forero Montejo (EstebanForero)
+- Carlos David Cruz Pavas (carlosdacruzz)
+- Juan Felipe Cepeda Uribe 
+- Santiago Sabogal Millan (santiagoSaMi)
 
 ## 🧠 Actividades realizadas en clase
 
