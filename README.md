@@ -4,6 +4,8 @@
 
 La parte uno, se puede encontrar en la carpeta de clase, junto al diagrama BPMN
 
+Edicion: Ahora este repositorio contiene ambas partes, la primera y segunda parte
+
 ## 👥 Integrantes presentes
 - Esteban Fernando Forero Montejo (EstebanForero)
 - Carlos David Cruz Pavas (carlosdacruzz)
