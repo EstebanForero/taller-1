@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+  id="Definitions_1"
+  targetNamespace="http://bpmn.io/schema/bpmn"
+>
+  <bpmn:process id="Process_1" isExecutable="false">
+      
+      <bpmn:laneSet id="LaneSet_1"><bpmn:lane id="Lane_encargado" name="Encargado"><bpmn:flowNodeRef>node_s</bpmn:flowNodeRef><bpmn:flowNodeRef>node_recv_cna</bpmn:flowNodeRef><bpmn:flowNodeRef>node_open_excel</bpmn:flowNodeRef><bpmn:flowNodeRef>node_comparar</bpmn:flowNodeRef><bpmn:flowNodeRef>node_g_cambios</bpmn:flowNodeRef><bpmn:flowNodeRef>node_marca_nuevas</bpmn:flowNodeRef><bpmn:flowNodeRef>node_marca_mod</bpmn:flowNodeRef><bpmn:flowNodeRef>node_marca_elim</bpmn:flowNodeRef><bpmn:flowNodeRef>node_revision_conjunta</bpmn:flowNodeRef><bpmn:flowNodeRef>node_enviar</bpmn:flowNodeRef><bpmn:flowNodeRef>node_verificar</bpmn:flowNodeRef><bpmn:flowNodeRef>node_g_links</bpmn:flowNodeRef><bpmn:flowNodeRef>node_notif_nochange</bpmn:flowNodeRef><bpmn:flowNodeRef>node_e_ok</bpmn:flowNodeRef><bpmn:flowNodeRef>node_e_nochange</bpmn:flowNodeRef></bpmn:lane><bpmn:lane id="Lane_proveedor_externo" name="Proveedor Externo"><bpmn:flowNodeRef>node_recv_prov</bpmn:flowNodeRef><bpmn:flowNodeRef>node_update_banco</bpmn:flowNodeRef><bpmn:flowNodeRef>node_gen_links</bpmn:flowNodeRef><bpmn:flowNodeRef>node_enviar_links</bpmn:flowNodeRef></bpmn:lane></bpmn:laneSet>
+      <bpmn:startEvent id="node_s" name="inicio" />
+      <bpmn:manualTask id="node_recv_cna" name="Recibir PDF lineamientos CNA" />
+      <bpmn:dataObject id="node_doc_cna_data" name="PDF Lineamientos CNA" />
+      <bpmn:dataObjectReference id="node_doc_cna" dataObjectRef="node_doc_cna_data" name="PDF Lineamientos CNA" />
+      <bpmn:manualTask id="node_open_excel" name="Abrir Excel consolidado histórico" />
+      <bpmn:dataObject id="node_doc_excel_data" name="Excel Consolidado Histórico" />
+      <bpmn:dataObjectReference id="node_doc_excel" dataObjectRef="node_doc_excel_data" name="Excel Consolidado Histórico" />
+      <bpmn:manualTask id="node_comparar" name="Comparar PDF CNA vs Excel pantalla por pantalla" />
+      <bpmn:exclusiveGateway id="node_g_cambios" name="¿Hay cambios?" />
+      <bpmn:manualTask id="node_marca_nuevas" name="Marcar preguntas nuevas en azul" />
+      <bpmn:manualTask id="node_marca_mod" name="Marcar preguntas modificadas en rojo" />
+      <bpmn:manualTask id="node_marca_elim" name="Registrar preguntas eliminadas" />
+      <bpmn:manualTask id="node_revision_conjunta" name="Revisar consolidado junto al jefe (jornadas completas)" />
+      <bpmn:dataObject id="node_doc_final_data" name="Excel Final con Trazabilidad de Cambios" />
+      <bpmn:dataObjectReference id="node_doc_final" dataObjectRef="node_doc_final_data" name="Excel Final con Trazabilidad de Cambios" />
+      <bpmn:manualTask id="node_enviar" name="Enviar Excel al proveedor" />
+      <bpmn:manualTask id="node_verificar" name="Verificar links uno por uno (carga, preguntas, errores)" />
+      <bpmn:exclusiveGateway id="node_g_links" name="¿Links correctos?" />
+      <bpmn:manualTask id="node_notif_nochange" name="Notificar al proveedor sin cambios" />
+      <bpmn:endEvent id="node_e_ok" name="proceso_listo" />
+      <bpmn:endEvent id="node_e_nochange" name="fin_sin_cambios" />
+      <bpmn:manualTask id="node_recv_prov" name="Recibir Excel con cambios" />
+      <bpmn:manualTask id="node_update_banco" name="Actualizar banco de preguntas en plataforma" />
+      <bpmn:manualTask id="node_gen_links" name="Generar links personalizados por público" />
+      <bpmn:manualTask id="node_enviar_links" name="Enviar links al Encargado" />
+      <bpmn:sequenceFlow id="flow_1" sourceRef="node_s" targetRef="node_recv_cna" />
+      <bpmn:association id="flow_2" sourceRef="node_doc_cna" targetRef="node_recv_cna" />
+      <bpmn:sequenceFlow id="flow_3" sourceRef="node_recv_cna" targetRef="node_open_excel" />
+      <bpmn:association id="flow_4" sourceRef="node_doc_excel" targetRef="node_open_excel" />
+      <bpmn:sequenceFlow id="flow_5" sourceRef="node_open_excel" targetRef="node_comparar" />
+      <bpmn:sequenceFlow id="flow_6" sourceRef="node_comparar" targetRef="node_g_cambios" />
+      <bpmn:sequenceFlow id="flow_7" sourceRef="node_g_cambios" targetRef="node_marca_nuevas" name="yes" />
+      <bpmn:sequenceFlow id="flow_8" sourceRef="node_g_cambios" targetRef="node_notif_nochange" name="no" />
+      <bpmn:sequenceFlow id="flow_9" sourceRef="node_notif_nochange" targetRef="node_e_nochange" />
+      <bpmn:sequenceFlow id="flow_10" sourceRef="node_marca_nuevas" targetRef="node_marca_mod" />
+      <bpmn:sequenceFlow id="flow_11" sourceRef="node_marca_mod" targetRef="node_marca_elim" />
+      <bpmn:sequenceFlow id="flow_12" sourceRef="node_marca_elim" targetRef="node_revision_conjunta" />
+      <bpmn:association id="flow_13" sourceRef="node_revision_conjunta" targetRef="node_doc_final" />
+      <bpmn:association id="flow_14" sourceRef="node_doc_final" targetRef="node_enviar" />
+      <bpmn:sequenceFlow id="flow_15" sourceRef="node_revision_conjunta" targetRef="node_enviar" />
+      <bpmn:sequenceFlow id="flow_16" sourceRef="node_enviar" targetRef="node_recv_prov" name="&quot;Proveedor Externo&quot;" />
+      <bpmn:sequenceFlow id="flow_17" sourceRef="node_recv_prov" targetRef="node_update_banco" />
+      <bpmn:sequenceFlow id="flow_18" sourceRef="node_update_banco" targetRef="node_gen_links" />
+      <bpmn:sequenceFlow id="flow_19" sourceRef="node_gen_links" targetRef="node_enviar_links" />
+      <bpmn:sequenceFlow id="flow_20" sourceRef="node_enviar_links" targetRef="node_verificar" name="Encargado" />
+      <bpmn:sequenceFlow id="flow_21" sourceRef="node_verificar" targetRef="node_g_links" />
+      <bpmn:sequenceFlow id="flow_22" sourceRef="node_g_links" targetRef="node_e_ok" name="yes" />
+      <bpmn:sequenceFlow id="flow_23" sourceRef="node_g_links" targetRef="node_enviar" name="no" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+        <bpmndi:BPMNShape id="Lane_encargado_di" bpmnElement="Lane_encargado" isHorizontal="true">
+          <dc:Bounds x="0" y="100" width="3090" height="420" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Lane_proveedor_externo_di" bpmnElement="Lane_proveedor_externo" isHorizontal="true">
+          <dc:Bounds x="0" y="520" width="3090" height="132" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_s_di" bpmnElement="node_s">
+          <dc:Bounds x="80" y="283" width="48" height="48" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_recv_cna_di" bpmnElement="node_recv_cna">
+          <dc:Bounds x="310" y="267" width="130" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_doc_cna_di" bpmnElement="node_doc_cna">
+          <dc:Bounds x="310" y="408" width="72" height="86" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_open_excel_di" bpmnElement="node_open_excel">
+          <dc:Bounds x="540" y="267" width="130" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_doc_excel_di" bpmnElement="node_doc_excel">
+          <dc:Bounds x="540" y="408" width="72" height="86" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_comparar_di" bpmnElement="node_comparar">
+          <dc:Bounds x="770" y="267" width="130" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_g_cambios_di" bpmnElement="node_g_cambios">
+          <dc:Bounds x="1000" y="275" width="64" height="64" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_marca_nuevas_di" bpmnElement="node_marca_nuevas">
+          <dc:Bounds x="1230" y="126" width="130" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_marca_mod_di" bpmnElement="node_marca_mod">
+          <dc:Bounds x="1460" y="126" width="130" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_marca_elim_di" bpmnElement="node_marca_elim">
+          <dc:Bounds x="1690" y="126" width="130" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_revision_conjunta_di" bpmnElement="node_revision_conjunta">
+          <dc:Bounds x="1920" y="126" width="130" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_doc_final_di" bpmnElement="node_doc_final">
+          <dc:Bounds x="2150" y="264" width="72" height="86" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_enviar_di" bpmnElement="node_enviar">
+          <dc:Bounds x="2150" y="126" width="130" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_verificar_di" bpmnElement="node_verificar">
+          <dc:Bounds x="2380" y="267" width="130" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_g_links_di" bpmnElement="node_g_links">
+          <dc:Bounds x="2610" y="275" width="64" height="64" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_notif_nochange_di" bpmnElement="node_notif_nochange">
+          <dc:Bounds x="1230" y="411" width="130" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_e_ok_di" bpmnElement="node_e_ok">
+          <dc:Bounds x="2840" y="424" width="54" height="54" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_e_nochange_di" bpmnElement="node_e_nochange">
+          <dc:Bounds x="1460" y="424" width="54" height="54" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_recv_prov_di" bpmnElement="node_recv_prov">
+          <dc:Bounds x="2150" y="546" width="130" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_update_banco_di" bpmnElement="node_update_banco">
+          <dc:Bounds x="2380" y="546" width="130" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_gen_links_di" bpmnElement="node_gen_links">
+          <dc:Bounds x="2610" y="546" width="130" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="node_enviar_links_di" bpmnElement="node_enviar_links">
+          <dc:Bounds x="2840" y="546" width="130" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNEdge id="flow_1_di" bpmnElement="flow_1"><di:waypoint x="128" y="307" /><di:waypoint x="160" y="300" /><di:waypoint x="280" y="300" /><di:waypoint x="310" y="307" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_2_di" bpmnElement="flow_2"><di:waypoint x="362" y="408" /><di:waypoint x="402" y="408" /><di:waypoint x="402" y="347" /><di:waypoint x="391" y="347" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_3_di" bpmnElement="flow_3"><di:waypoint x="440" y="307" /><di:waypoint x="460" y="300" /><di:waypoint x="520" y="300" /><di:waypoint x="540" y="307" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_4_di" bpmnElement="flow_4"><di:waypoint x="592" y="408" /><di:waypoint x="632" y="408" /><di:waypoint x="632" y="347" /><di:waypoint x="621" y="347" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_5_di" bpmnElement="flow_5"><di:waypoint x="670" y="307" /><di:waypoint x="700" y="300" /><di:waypoint x="740" y="300" /><di:waypoint x="770" y="307" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_6_di" bpmnElement="flow_6"><di:waypoint x="900" y="307" /><di:waypoint x="920" y="300" /><di:waypoint x="980" y="300" /><di:waypoint x="1000" y="307" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_7_di" bpmnElement="flow_7"><di:waypoint x="1040.57" y="270" /><di:waypoint x="1040" y="240" /><di:waypoint x="1040" y="160" /><di:waypoint x="1200" y="160" /><di:waypoint x="1230" y="166" /><bpmndi:BPMNLabel><dc:Bounds x="1022.04" y="210.01" width="36" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_8_di" bpmnElement="flow_8"><di:waypoint x="1040.57" y="344" /><di:waypoint x="1040" y="360" /><di:waypoint x="1040" y="460" /><di:waypoint x="1200" y="460" /><di:waypoint x="1230" y="451" /><bpmndi:BPMNLabel><dc:Bounds x="1021.57" y="359.98" width="36" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_9_di" bpmnElement="flow_9"><di:waypoint x="1360" y="451" /><di:waypoint x="1380" y="460" /><di:waypoint x="1440" y="460" /><di:waypoint x="1460" y="451" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_10_di" bpmnElement="flow_10"><di:waypoint x="1360" y="166" /><di:waypoint x="1380" y="160" /><di:waypoint x="1440" y="160" /><di:waypoint x="1460" y="166" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_11_di" bpmnElement="flow_11"><di:waypoint x="1590" y="166" /><di:waypoint x="1620" y="160" /><di:waypoint x="1660" y="160" /><di:waypoint x="1690" y="166" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_12_di" bpmnElement="flow_12"><di:waypoint x="1820" y="166" /><di:waypoint x="1840" y="160" /><di:waypoint x="1900" y="160" /><di:waypoint x="1920" y="166" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_13_di" bpmnElement="flow_13"><di:waypoint x="1985" y="206" /><di:waypoint x="1980" y="240" /><di:waypoint x="2180" y="240" /><di:waypoint x="2186" y="264" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_14_di" bpmnElement="flow_14"><di:waypoint x="2202" y="264" /><di:waypoint x="2220" y="240" /><di:waypoint x="2240" y="240" /><di:waypoint x="2240" y="220" /><di:waypoint x="2231" y="206" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_15_di" bpmnElement="flow_15"><di:waypoint x="2050" y="166" /><di:waypoint x="2080" y="160" /><di:waypoint x="2120" y="160" /><di:waypoint x="2150" y="166" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_16_di" bpmnElement="flow_16"><di:waypoint x="2215" y="206" /><di:waypoint x="2220" y="240" /><di:waypoint x="2260" y="240" /><di:waypoint x="2260" y="500" /><di:waypoint x="2220" y="500" /><di:waypoint x="2220" y="520" /><di:waypoint x="2215" y="546" /><bpmndi:BPMNLabel><dc:Bounds x="2152.57" y="211.7" width="133" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_17_di" bpmnElement="flow_17"><di:waypoint x="2280" y="586" /><di:waypoint x="2300" y="580" /><di:waypoint x="2360" y="580" /><di:waypoint x="2380" y="586" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_18_di" bpmnElement="flow_18"><di:waypoint x="2510" y="586" /><di:waypoint x="2540" y="580" /><di:waypoint x="2580" y="580" /><di:waypoint x="2610" y="586" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_19_di" bpmnElement="flow_19"><di:waypoint x="2740" y="586" /><di:waypoint x="2760" y="580" /><di:waypoint x="2820" y="580" /><di:waypoint x="2840" y="586" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_20_di" bpmnElement="flow_20"><di:waypoint x="2905" y="546" /><di:waypoint x="2900" y="520" /><di:waypoint x="2780" y="520" /><di:waypoint x="2780" y="400" /><di:waypoint x="2440" y="400" /><di:waypoint x="2440" y="380" /><di:waypoint x="2445" y="347" /><bpmndi:BPMNLabel><dc:Bounds x="2868.21" y="496.5" width="63" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_21_di" bpmnElement="flow_21"><di:waypoint x="2510" y="307" /><di:waypoint x="2540" y="300" /><di:waypoint x="2580" y="300" /><di:waypoint x="2610" y="307" /></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_22_di" bpmnElement="flow_22"><di:waypoint x="2642" y="339" /><di:waypoint x="2640" y="360" /><di:waypoint x="2640" y="380" /><di:waypoint x="2860" y="380" /><di:waypoint x="2860" y="400" /><di:waypoint x="2867" y="424" /><bpmndi:BPMNLabel><dc:Bounds x="2621.35" y="334.87" width="36" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="flow_23_di" bpmnElement="flow_23"><di:waypoint x="2610" y="307" /><di:waypoint x="2580" y="300" /><di:waypoint x="2580" y="160" /><di:waypoint x="2300" y="160" /><di:waypoint x="2280" y="166" /><bpmndi:BPMNLabel><dc:Bounds x="2564.73" y="288.64" width="36" height="18" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
