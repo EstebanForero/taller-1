@@ -54,6 +54,9 @@ El objetivo del modelo fue representar de forma clara:
 - El diagrama modela dos participantes:
   - Encargado
   - Proveedor Externo
+ 
+<img width="3100" height="562" alt="image" src="https://github.com/user-attachments/assets/e0627ee5-9fb2-4e21-aaaf-f8d90b491585" />
+
 
 ## Tabla de actores, entidades o componentes
 | Tipo | Elemento | Rol en el proceso |
