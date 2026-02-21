@@ -1,8 +1,5 @@
 # Informe técnico del taller
 
-## BPMN
-_Taller 1 - BPMN_
-
 ## Integrantes del equipo
 - Esteban Fernando Forero Montejo
 - Santiago Sabogal Millan (santiagoSaMi)
